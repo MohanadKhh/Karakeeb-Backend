@@ -1,0 +1,6 @@
+@Karakeeb.APIs_HostAddress = http://localhost:5016
+
+GET {{Karakeeb.APIs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

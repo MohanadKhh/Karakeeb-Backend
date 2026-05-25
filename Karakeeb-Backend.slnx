@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Karakeeb.APIs/Karakeeb.APIs.csproj" />
+  <Project Path="Karakeeb.Application/Karakeeb.Application.csproj" Id="c1821b79-e7ab-4e6e-96e8-e9d106d43880" />
+  <Project Path="Karakeeb.Domain/Karakeeb.Domain.csproj" Id="1e3115d0-4db7-42de-91e8-d1070aa745ec" />
+  <Project Path="Karakeeb.Infrastructure/Karakeeb.Infrastructure.csproj" Id="6669f6b3-f09f-4033-9392-3264fc568a48" />
+</Solution>

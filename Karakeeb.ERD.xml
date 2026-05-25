@@ -1,0 +1,199 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="ScrapBroker ERD">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1"
+      connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920"
+      pageHeight="1080" math="0" shadow="0">
+
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- AspNetUsers -->
+        <mxCell id="users" value="
+        AspNetUsers
+        -------------------------
+        PK Id : INT
+        FullName : NVARCHAR(200)
+        Email : NVARCHAR(256)
+        PhoneNumber : NVARCHAR(20)
+        IsVerified : BIT
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- ScrapCategories -->
+        <mxCell id="categories" value="
+        ScrapCategories
+        -------------------------
+        PK CategoryId : INT
+        Name : NVARCHAR(100)
+        Description : NVARCHAR(500)
+        IsActive : BIT
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="40" width="240" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- ScrapListings -->
+        <mxCell id="listings" value="
+        ScrapListings
+        -------------------------
+        PK ListingId : INT
+        FK SellerId : INT
+        FK CategoryId : INT
+        Title : NVARCHAR(200)
+        Description : NVARCHAR(2000)
+        Quantity : DECIMAL(18,2)
+        Unit : NVARCHAR(20)
+        AskingPrice : DECIMAL(18,2)
+        PriceUnit : NVARCHAR(20)
+        Location : NVARCHAR(200)
+        Status : NVARCHAR(20)
+        CreatedAt : DATETIME2
+        UpdatedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="320" height="320" as="geometry"/>
+        </mxCell>
+
+        <!-- ListingImages -->
+        <mxCell id="images" value="
+        ListingImages
+        -------------------------
+        PK ImageId : INT
+        FK ListingId : INT
+        ImageUrl : NVARCHAR(500)
+        IsPrimary : BIT
+        UploadedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="320" width="260" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Offers -->
+        <mxCell id="offers" value="
+        Offers
+        -------------------------
+        PK OfferId : INT
+        FK ListingId : INT
+        FK BuyerId : INT
+        OfferedPrice : DECIMAL(18,2)
+        Note : NVARCHAR(1000)
+        Status : NVARCHAR(20)
+        CreatedAt : DATETIME2
+        UpdatedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="300" width="300" height="240" as="geometry"/>
+        </mxCell>
+
+        <!-- OfferCounters -->
+        <mxCell id="counters" value="
+        OfferCounters
+        -------------------------
+        PK CounterId : INT
+        FK OfferId : INT
+        FK SentByUserId : INT
+        ProposedPrice : DECIMAL(18,2)
+        Note : NVARCHAR(1000)
+        CreatedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="300" width="300" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- Deals -->
+        <mxCell id="deals" value="
+        Deals
+        -------------------------
+        PK DealId : INT
+        FK OfferId : INT
+        FK ListingId : INT
+        FK SellerId : INT
+        FK BuyerId : INT
+        FinalPrice : DECIMAL(18,2)
+        SellerPhone : NVARCHAR(20)
+        SellerEmail : NVARCHAR(150)
+        Status : NVARCHAR(20)
+        CreatedAt : DATETIME2
+        UpdatedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="620" width="320" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- Reviews -->
+        <mxCell id="reviews" value="
+        Reviews
+        -------------------------
+        PK ReviewId : INT
+        FK DealId : INT
+        FK ReviewerUserId : INT
+        FK RevieweeUserId : INT
+        Rating : TINYINT
+        Comment : NVARCHAR(1000)
+        CreatedAt : DATETIME2
+        " style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="640" width="300" height="240" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationships -->
+
+        <mxCell id="e1" style="endArrow=ERmany;" edge="1" parent="1"
+          source="users" target="listings">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e2" style="endArrow=ERmany;" edge="1" parent="1"
+          source="categories" target="listings">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e3" style="endArrow=ERmany;" edge="1" parent="1"
+          source="listings" target="images">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e4" style="endArrow=ERmany;" edge="1" parent="1"
+          source="listings" target="offers">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5" style="endArrow=ERmany;" edge="1" parent="1"
+          source="users" target="offers">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e6" style="endArrow=ERmany;" edge="1" parent="1"
+          source="offers" target="counters">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e7" style="endArrow=ERmany;" edge="1" parent="1"
+          source="users" target="counters">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e8" style="endArrow=ERone;" edge="1" parent="1"
+          source="offers" target="deals">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e9" style="endArrow=ERmany;" edge="1" parent="1"
+          source="listings" target="deals">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e10" style="endArrow=ERmany;" edge="1" parent="1"
+          source="users" target="deals">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e11" style="endArrow=ERmany;" edge="1" parent="1"
+          source="deals" target="reviews">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e12" style="endArrow=ERmany;" edge="1" parent="1"
+          source="users" target="reviews">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
