@@ -3,6 +3,7 @@ using Karakeeb.Application;
 using Karakeeb.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 namespace Karakeeb.APIs
@@ -35,6 +36,10 @@ namespace Karakeeb.APIs
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                // apply any pending migrations to the database
+                db.Database.Migrate();
+
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
